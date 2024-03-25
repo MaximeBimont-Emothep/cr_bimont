@@ -87,6 +87,6 @@ Aussi sur la pause du jeudi, l'entreprise à organiser un Spring Break, donc un 
 ## Ce qui est prévu pour la semaine prochaine 
 
 Pour la semaine prochaine, je compte :
-- tester le zippage de fichiers pour tenter d'optimiser le projet (à voir l'efficacité)
+- Tester le zippage de fichiers pour tenter d'optimiser le projet (à voir l'efficacité)
 - Retirer l'appel css de FontAwesome qui est une feature trop gourmande pour le projet
 - Ajouter un loader CSS pour les appels API.

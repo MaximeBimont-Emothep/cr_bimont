@@ -90,3 +90,24 @@ Pour la semaine prochaine, je compte :
 - Tester le zippage de fichiers pour tenter d'optimiser le projet (à voir l'efficacité)
 - Retirer l'appel css de FontAwesome qui est une feature trop gourmande pour le projet
 - Ajouter un loader CSS pour les appels API.
+
+# Semaine du 25 mars au 29 mars
+
+## Ce que j'ai fait
+
+Cette semaine à été plus légère en termes d'ajout de gros fonctionnalités. Avec pour objectif de préparer la mise en production, on m'a demandé de perfectionner l'existant pour avoir un rendu utilisable lors de la mise en production. J'ai donc commencé par corriger les différents bugs sur l'application. J'ai ensuite fais le tour des différents employés de l'entreprise pour leur faire tester l'application et avoir leurs retours. J'ai de ce fait ajouté ou modifié certains aspect pour perfectionner le rendu.
+
+## Ce que j'ai appris
+
+Toujours en plein apprentissage des techniques et bonnes pratiques d'Angular. J'ai toute fois utilisé pour la première fois un outil git qui est "BackLog". Une sorte de Trello qui m'a permis de voir l'avancement des différentes features à ajouter ou des bugs à modifier. Cet outil est très pratique car il me mettai dans un bon état d'esprit comme je voyais que j'avançais bien sur le projet.
+
+## Ce que j'ai ressenti
+
+Pas vraiment de problèmes rencontrés cette semaine.
+
+## Ce qui est prévu pour la semaine prochaine 
+
+Pour la semaine prochaine, je compte :
+- Rédiger les différentes documentations pour le projet
+- Aider l'autre projet interne sur l'aspect de la gestion d'erreur de leurs retours d'appels API
+- Entretien avec un membre de l'entreprise pour organiser et faire les pré-requis pour la mise en production

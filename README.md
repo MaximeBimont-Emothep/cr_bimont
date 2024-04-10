@@ -111,3 +111,38 @@ Pour la semaine prochaine, je compte :
 - Rédiger les différentes documentations pour le projet
 - Aider l'autre projet interne sur l'aspect de la gestion d'erreur de leurs retours d'appels API
 - Entretien avec un membre de l'entreprise pour organiser et faire les pré-requis pour la mise en production
+
+# Semaine du 01 avril au 05 avril
+
+## Ce que j'ai fait
+
+Cette semaine on m'a confié une tâche sur le gros projet interne de la boîte. L'objectif était de rajouter la gestion d'erreur sur les 130 appels API du projet pour personnaliser le message de retour d'erreur et faciliter le débogage. Après une réunion m'expliquant mon travail et les outils mis à ma disposition, j'ai pu m'atteler à ma tâche. Pour la gestion d'erreur voici quelques précisions : 
+
+Chaque appel API devaient avoir un retour d'erreur `400 - Bad Request`
+Les appels POST devaient avoir en plus `403 - Already Exist`
+Les appels DELETE devaient avoir en plus : 
+    - `404 - Not Found`
+    - `403 - In Use`
+Les appels PUT devaient avoir en plus : 
+    - `404 - Not Found`
+    - `403 - Already Exist`
+
+Pour les retours 400, il fallait modifier les paramètres `Required` et `Allow null` pour tous les champs en input des appels.
+Pour les retours 404, un autre membre de l'entreprise à créé un service permettant de vérifier le contenu du message d'erreur et à l'aide d'une table en bdd contenant des filtres de messages d'erreur capable de détecter le type d'erreur. De ce fait pour les retours 404, il nous fallait ajouter ce service et modifier la requete SQL pour ajouter le retour de l'id de l'élément supprimé ou modifié grâce à `returning id` sur postgreSQL car ce service nécesitte ce dernier paramètre.
+Pour les retours 403, il fallait modifier les paramètres de suppression et des contraintes de clés unique dans les tables de la base de données.
+
+Du côté de mon projet base de connaissances, j'ai réaliser les documentations techniques et d'utilisateurs. J'ai aussi eu une réunion avec d'autres membres de l'entreprise pour organiser la mise en production du projet. J'ai donc initialisé un dépot git pour le back et le front. Un changement de serveur pour la recette et la mise en place d'un serveur de production qui sera utilisé par tout le monde dans la boite.
+
+## Ce que j'ai appris
+
+J'ai beaucoup appris sur la gestion des projets dans git avec Webmethods, ainsi que les différentes étapes pour partager son travail sur un projet qui est développé par une dizaine d'employés. 
+
+## Ce que j'ai ressenti
+
+J'ai failli engendré un problème car au lieu de faire une `pull request` sur git, j'ai directement publié mon travail sur l'environment de recette. Heuresement l'erreur était minime est j'ai pu rapidement fixer l'erreur avant de créer de gros problèmes.
+
+## Ce qui est prévu pour la semaine prochaine 
+
+Pour la semaine prochaine, je compte :
+- Finir l'implémentation de la gestion d'erreur
+- Réaliser les points définies dans la réunion de mise en production pour le projet base de connaissance.

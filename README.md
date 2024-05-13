@@ -271,3 +271,49 @@ Pour la semaine prochaine, je compte :
 - Réaliser différents point sur le projet de refonte des projets internes
 - Continuer la refonte de la partie Front du projet BDC que j'ai commencé sur mon temps perso
 - Encadrer les stagiaires sur le projet BDC.
+
+# Semaine du 22 avril au 30 avril
+
+## Ce que j'ai fait
+
+Durant cette période, j'ai réalisé plusieurs tâches mais la principale à été l'amélioration la gestion des fichiers de la refonte. Pour toutes les API, je devais tester tous les appels pour vérifier si ces derniers effectuaient le bon traitement du fichier récemment ajouté.
+
+Je devais suivre un cahier des charges et modifier en conséquence, comme par exemple :
+- chaque appel POST devait retourner un objet nommé data et contenir un id de type integer
+- tous les id devaient être de type integer
+- ...
+
+Je devais aussi ajouter des transactions SQL qui permettent de sécuriser les appels à la base de données en fonctions du type d'appel. Pour faire simple, pour tous appels INSERT, DELETE ou UPDATE ces derniers devaient être encapsulés dans la transaction pour éviter que si le dernier appel échoue, ceux qui ont été effectués précédemment soit annulés. Par contre les appel de type GET devaient être effectués avant la transaction pour éviter d'altérer les types d'appel.
+
+Par exemple :
+
+![transaction](img/transaction.png)
+
+Ici dans un try-catch, je viens récupérer en amont les différentes informations que j'ai besoin et ensuite j'effectue ma transaction. La transaction comporte 3 étapes : start, commit et rollback.
+Ces 3 étapes sont obligatoires et l'oubli d'un seul empecherait le bon fonctionnement de la transaction. Deux cas sont possibles : 
+- Réussite : tous les appels SQL ont été effectués avec succès et la transaction commit les résultats de ces appels.
+- Echec : le service tombe dans le catch puis le rollback et ce dernier va venir annuler toutes les modifications effectués précédemment par les appels SQL.
+
+Cela va venir éviter d'insérer plusieurs données dans la table alors que des appels postérieur ont échoués. 
+
+Enfin la dernière étape de cette tâche était de venir fixer les problèmes de certains flows qui ont été mal réalisés.
+
+J'ai aussi effectué une autre tâche qui était de fixer une erreur sur le calcul du nombre de jours travaillé dans le mois par un collaborateur. Ce calcul prenanit en compte le nombre de jours ouvrables dans le mois et devait ensuite soustraire au nombre de jours de congé pris par le collaborateur. Ce qui était assez sensible était de retirer tous les jours fériés ainsi que les week-ends. Le problème s'est révélé être que certains jours fériés étaient soit un samedi ou un dimanche et qu'ils étaients donc décomptés 2 fois dans le calcul. Aussi pour venir récupérer les jours fériés de l'année, ont utilise une API dédiée à cela.
+
+## Ce que j'ai appris
+
+J'ai appris l'importance des transactions SQL et comment bien les implémenter dans mes flows services. 
+
+## Ce que j'ai ressenti
+
+Un problème qui est vite arrivé à été que plusieurs personnes ont travaillés sur la gestion des fichier en amont, sur différentes périodes ce qui a engendrer plusieurs code différents pour un même service. Donc lorsque j'ai du venir repasser sur chaque service, la tâche a été plus longue puisque je devais tous modifier pour remettre au format standard. Si une voir deux personne avait seulement travaillé sur la gestion des fichiers, cette dernière m'aurait pris 3 jours au lieu d'une semaine et demi.
+
+Ensuite j'ai pu un peu gérer un stagiaire en tant que TechLead ce qui était très cool même si c'était un peu limité du fait du peu de ressources qu'elle disposait en termes de logiciel et d'accès sur les différentes techno de la boîte.
+
+## Ce qui est prévu pour la semaine prochaine 
+
+Je suis en congé du 1 au 12 mai, je verrai la tâche qu'on m'attribue en revenant lors du daily du lundi 13 mai.
+
+# Semaine du 1er mai au 12 mai
+
+congés

@@ -369,3 +369,75 @@ Tous c'est très bien passé cette semaine.
 On m'a assigné une tâche en fin de semaine sur laquelle je travaillerais durant la semaine prochaine. Celle ci reprends un projet nommé AMAT déjà existant sur le projet GIFI qui permet de retourner des rapports de gestion de modification du code. J'en parlerais plus en détail la semaine prochaine.
 
 # Semaine du 20 mai au 24 mai
+
+## Ce que j'ai fais
+
+Cette semaine j'ai travaillé sur le projet AMAT. Concrètement ce projet survient pour le client `GIJI`et permets de ressortir un rapport d'erreur spécifiant si les modifications actuelle ne rentrent pas en conflits avec les précédentes en analysant les résultats des tests obtenus. Le problème étant qu'il peut survenir que le client coupe un service pour X raisons sans en prévenir E-mothep ultérieurement est provoqué des erreurs négligables dans les rapports. 
+
+C'est là que je suis intervenue, ma tâche était donc de lancer un flux en même temps que le lancement de ce dit rapport et de remonter les exceptions qui peuvent survenir par rapport à l'état des services du client. Par exemple si le client coupe le service, je suis capable en récupérant la donnée dans la base de donnée (ici Mysql) la valeur de l'état du service et d'enregistrer une exception dans une nouvelle table, créée pour répondre le besoin, cette exception. Ensuite lors de la création du rapport ce dernier vérifira les exceptions présent dans la table et ne viendra pas les rémonter aux clients.
+
+J'ai aussi vérifier les paramètres d'entrée pour une API utilisée dans le projet de refonte. La tâche était de clarifié quel paramètres étaient obligatoires ou non si ces derniers pouvaient être null. Il y avait un point auquel il fallait faire attention qui était que seul le service appelé par l'API REST devait contenir cette définition de `validate input`. 
+
+Pour rappel, l'architecture de chaque API est comme ceci :
+
+- A_Package 
+    - pub : regroupe les services qui ont fini d'être traités dans le S_Package
+    - ws : appelle les services depuis le pub de ce même package qui vont être utilisés lors des appels API  
+- S_Package
+    - priv : contient tous les services de calculs précis pour répondre aux besoins dans le répertoire pub de ce même package
+    - pub : regroupe tous les calculs du répertoire priv de ce même package et tous les appels de la base de données depuis le package C
+- C_package
+    - adapter : récupère les données depuis la base de données
+    - priv : appel les services du répertoire adapter
+    - pub : appel les services du répertoire priv et est utiisé dans le répertoire S
+
+En résumé un appel API gardera le même nom entre le moment où ses données sont récupérées depuis la table et lorsqu'il est appellé par l'API et fera : `C_adapter`, `C_priv`, `C_pub`, `S_pub`, `A_pub`, `A_ws` et enfin `appel API`. L'utilisation du `S_priv` est uniqué valable seulement si des calculs précis sont demandés (ex: calculé le nombre d'occurence d'un champ récupéré depuis la table). 
+
+## Ce que j'ai appris
+
+J'ai pu apprendre l'importance de rédiger des rapports clairs et conscis pour faciliter la tâches des développeurs ensuite. 
+
+## Ce que j'ai ressenti
+
+Tous c'est très bien passé cette semaine.
+
+## Ce qui est prévu pour la semaine prochaine 
+
+D'après ce que l'on m'a dis j'interviendrais sur le même projet mais pour une autre tâche car le responsable à été ravis de mon travail. Il est possible que j'intervienne encore sur la réfonte des projets internes comme j'ai pu le faire cette semaine.
+
+# Semaine du 20 mai au 24 mai
+
+## Ce que j'ai fait
+
+Cette semaine j'ai continué mon travail sur le projet AMAT-GIFI que j'ai présenté la semaine dernière. Le développement des services d'exception des rapports étant déjà réalisé, j'ai pu les implémenter dans les appels API existants. Il m'a ensuite suffit de réaliser des tests avec la base de donnée pour observer les résultats et modifier le flow service d'exception si c'était nécessaire.
+
+Ensuite sur le même projet, j'ai du modifier des KPI qui étaient alors mokké (valeurs insérées en dur côté back) pour qu'ils prennent les données comprisent dans la base. Pour ca j'ai réalisé une requête très spécifique pour venir récupérer ces données depuis différente tables: 
+
+- kpi
+- kpiLabel
+- currentValue
+- criticalValue
+
+Pour avoir toutes les informations des KPI, il fallait réaliser quelques calculs pour obtenir les données suivantes :
+
+- marginalValue (90% de la criticalValue)
+- maxValue (100 si c'est un %)
+- state (ok, ko, warning)
+- type (% ou integer)
+
+Enfin, il ne restait qu'à modifier les inputs de sorties des appels API pour que le front puisse recevoir les nouvelles données au bon format.
+
+J'ai pu aussi bien avancer sur la nouvelle interface du projet base de connaissances.
+
+## Ce que j'ai appris
+
+Rien de nouveau.
+
+## Ce que j'ai ressenti
+
+Tous s'est bien passé.
+
+## Ce qui est prévu pour la semaine prochaine 
+
+- Continuer des tâches sur AMAT
+- Continuer le nouvel affichage de KDB 
